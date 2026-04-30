@@ -1,8 +1,12 @@
 "use client"
 
 
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaEyeSlash } from "react-icons/fa";
+import { LuEyeClosed } from "react-icons/lu";
 
  
 
@@ -14,9 +18,17 @@ const {
     formState: { errors }
     
   } = useForm()
-   
-    const handleLogInFunc=(data)=>{
-       console.log(data,"data")
+   const [isShowPassword,setIsShowPassword]=useState(false)
+    const handleLogInFunc=async (data)=>{
+          
+    const {email,name,image,password}=data;
+           const {data:res,error } = await authClient.signIn.email({
+        name: name, 
+        email: email, 
+        password: password, 
+        image: image,
+        callbackURL: "/",
+    });
     }
     return (
         <div>
@@ -30,7 +42,8 @@ const {
           <input type="email" className="input w-full" placeholder="Email" {...register("email",{ required: true })}/>
           {errors.email && <p className="text-red-400">Email must be fill in!</p>}
           <label className="label font-semibold">Password</label>
-          <input type="password" className="input w-full" placeholder="Password" name="password" {...register("password",{ required: true })}/>
+          <input type={isShowPassword?"text":"password"} className="input w-full " placeholder="Password" name="password" {...register("password",{ required: true })}/>
+          <span className="relative" onClick={()=>setIsShowPassword(!isShowPassword)}>{isShowPassword?<FaEyeSlash className="absolute right-5 top-[-30] " />:<LuEyeClosed className="absolute right-5 top-[-30] " />}</span>
           {errors.password && <p className="text-red-400">Password must be fill in!</p>}
           <div><a className="link link-hover">Forgot password?</a></div>
          <input
