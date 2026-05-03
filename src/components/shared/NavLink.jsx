@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 
+
+
 const NavLink = ({href,children}) => {
     const pathname= usePathname();
     console.log(pathname,"pathname");
