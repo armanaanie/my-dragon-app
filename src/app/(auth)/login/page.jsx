@@ -54,7 +54,7 @@ const {
         </fieldset></form>
         
       </div>
-      <p className="text-center text-[12px]">Don't Have a account? <Link href="/Register" className="text-red-400 font-semibold">Register</Link></p>
+      <p className="text-center text-[12px]">Don't Have a account? <Link href="/Register" className="text-red-400 font-semibold">Register Yourself</Link></p>
     </div>
         </div>
     );
